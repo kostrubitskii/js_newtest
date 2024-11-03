@@ -1,0 +1,18 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  padding: 0 25px;
+  background-color: rgba(255, 216, 164, 0.658);
+}
+
+.text {
+  margin-top: 30rem;
+  font-weight: bold;
+  font-size: 40rem;
+  color: black;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+}

@@ -1,0 +1,56 @@
+.container {
+  background-color: rgba(255, 216, 164, 0.658);
+  padding: 0 20rem;
+}
+
+.nickname {
+  padding: 40rem 0 10rem;
+  font-size: 50rem;
+  font-weight: bold;
+}
+
+.realName {
+  font-size: 20rem;
+  font-style: italic;
+}
+
+.cathphrase {
+  font-size: 15rem;
+}
+
+.description {
+  font-size: 15rem;
+}
+
+.head {
+  padding-top: 20rem;
+  font-size: 20rem;
+  font-weight: bold;
+}
+
+.superpowers {
+  font-size: 15rem;
+}
+
+.imagesBlock {
+  display: flex;
+  flex-direction: row;
+  width: 200rem;
+  padding-top: 50rem;
+  gap: 20rem;
+}
+
+.image {
+  height: auto;
+  aspect-ratio: 1/1;
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: 20rem;
+}
+
+.button {
+  margin: 0;
+  padding: 0;
+  width: 100rem;
+  margin-bottom: 20rem;
+}
