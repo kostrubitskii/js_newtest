@@ -43,12 +43,35 @@ export const getSuperheroById = async (req, res) => {
   }
 };
 
+// export const updateSuperhero = async (req, res) => {
+//   const { id } = req.params;
+
+//   console.log(req.body)
+//   try {
+//     const superhero = await updateById(id, req.body);
+//     if (!superhero) {
+//       return res.sendStatus(404);
+//     }
+//     res.send(superhero);
+//   } catch (error) {
+//     res.status(400).send(error);
+//   }
+// };
+
 export const updateSuperhero = async (req, res) => {
   const { id } = req.params;
+  const images = req.files || []; // Нові завантажені файли
+  const existingImages = Array.isArray(req.body.existingImages) ? req.body.existingImages : [req.body.existingImages]; // Існуючі URL без JSON.parse
 
-  console.log(req.body)
   try {
-    const superhero = await updateById(id, req.body);
+    const uploadedImages = await Promise.all(images.map(file => uploadFile(file)));
+    const updatedImages = [...existingImages, ...uploadedImages];
+
+    const superhero = await updateById(id, {
+      ...req.body,
+      images: updatedImages,
+    });
+
     if (!superhero) {
       return res.sendStatus(404);
     }
@@ -57,6 +80,7 @@ export const updateSuperhero = async (req, res) => {
     res.status(400).send(error);
   }
 };
+
 
 export const deleteSuperhero = async (req, res) => {
   const { id } = req.params;

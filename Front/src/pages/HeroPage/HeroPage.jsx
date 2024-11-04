@@ -1,12 +1,13 @@
 import styles from "./heropage.module.scss";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header/Header";
 import { Form } from "../../components/Form/Form";
 import { handleUpdateSubmit } from "../../components/Form/utils";
 
 export const HeroPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const getHero = async () => {
     try {
@@ -25,6 +26,21 @@ export const HeroPage = () => {
 
   const getCLicked = () => {
     setClick((prev) => !prev);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const res = await fetch(`http://localhost:3005/heroes/${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        navigate("/");
+      } else {
+        console.log("Помилка видалення героя");
+      }
+    } catch (error) {
+      console.log("Помилка:", error);
+    }
   };
 
   return (
@@ -60,9 +76,15 @@ export const HeroPage = () => {
               />
             ))}
         </div>
-        <button className={styles.button} onClick={getCLicked}>
-          {click ? "CANCEL" : "UPDATE HERO"}
-        </button>
+        <div className={styles.buttonBlock}>
+          <button className={styles.button} onClick={getCLicked}>
+            {click ? "CANCEL" : "UPDATE HERO"}
+          </button>
+
+          <button className={styles.button} onClick={handleDelete}>
+            DELETE HERO
+          </button>
+        </div>
         {click && (
           <div className={styles.background}>
             <Form

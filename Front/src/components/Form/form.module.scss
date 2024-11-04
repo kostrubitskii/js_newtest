@@ -40,20 +40,21 @@ input[type="file"] {
 
 .previews {
   display: flex;
-  gap: 10rem;
+  gap: 5rem;
   flex-wrap: wrap;
   margin-top: 10rem;
 }
 
 .imagePreview {
-  width: 80rem;
-  height: 80rem;
+  width: 107rem;
+  height: 107rem;
   object-fit: cover;
   border-radius: 4px;
   border: 1px solid #ddd;
+  margin-bottom: 20rem;
 }
 
-button {
+.buttonSubmit {
   width: 100%;
   max-width: 500rem;
   padding: 10rem 20rem;
@@ -64,8 +65,29 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 }
 
-button:hover {
-  background-color: #0056b3;
+.previewImageBlock {
+  position: relative;
+  display: inline-block;
+}
+
+.deleteButton {
+  font-size: 15rem;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ff1a1a;
+  }
 }

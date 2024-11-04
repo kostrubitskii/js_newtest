@@ -1,6 +1,7 @@
 .container {
   background-color: rgba(255, 216, 164, 0.658);
   padding: 0 20rem;
+  min-height: 100vh;
 }
 
 .nickname {
@@ -48,9 +49,25 @@
   margin-bottom: 20rem;
 }
 
+.buttonBlock {
+  display: flex;
+  gap: 30rem;
+}
+
 .button {
   margin: 0;
   padding: 0;
+  height: 50rem;
   width: 100rem;
   margin-bottom: 20rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 }

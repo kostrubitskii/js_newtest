@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./form.module.scss";
 
 export const Form = ({
@@ -15,8 +15,13 @@ export const Form = ({
   id,
 }) => {
   const [formData, setFormData] = useState(hero);
-
   const [imagePreviews, setImagePreviews] = useState([]);
+
+  useEffect(() => {
+    if (hero.images) {
+      setImagePreviews(hero.images);
+    }
+  }, [hero.images]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,8 +40,22 @@ export const Form = ({
     setImagePreviews((prevPreviews) => [...prevPreviews, ...previews]);
   };
 
+  const handleDeleteImage = (image) => {
+    setFormData((prevState) => {
+      const newImages = prevState.images.filter((img) => img !== image);
+      return { ...prevState, images: newImages };
+    });
+
+    setImagePreviews((prevPreviews) => {
+      return prevPreviews.filter((preview) => preview !== image);
+    });
+  };
+
   return (
-    <form onSubmit={(e) => handleSubmit(e, formData, id)} className={styles.formContainer}>
+    <form
+      onSubmit={(e) => handleSubmit(e, formData, id)}
+      className={styles.formContainer}
+    >
       <div className={styles.test}>
         <label>Nickname:</label>
         <input
@@ -104,15 +123,25 @@ export const Form = ({
 
       <div className={styles.previews}>
         {imagePreviews.map((preview, index) => (
-          <img
-            key={index}
-            src={preview}
-            alt={`Preview ${index}`}
-            className={styles.imagePreview}
-          />
+          <div className={styles.previewImageBlock} key={index}>
+            <button
+              className={styles.deleteButton}
+              type="button"
+              onClick={() => handleDeleteImage(preview)}
+            >
+              X
+            </button>
+            <img
+              src={preview}
+              alt={`Preview ${index}`}
+              className={styles.imagePreview}
+            />
+          </div>
         ))}
       </div>
-      <button type="submit" className={styles.button}>{buttonText}</button>
+      <button type="submit" className={styles.buttonSubmit}>
+        {buttonText}
+      </button>
     </form>
   );
 };
