@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./heropage.module.scss";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -47,6 +49,7 @@ export const HeroPage = () => {
     <div>
       <Header text={"SUPERHERO INFORMATION"} />
       <div className={styles.container}>
+      <a href="/" className={styles.arrow}></a>
         <p className={styles.nickname}>{hero.nickname}</p>
         <p className={styles.realName}>{`(${hero.real_name})`}</p>
 

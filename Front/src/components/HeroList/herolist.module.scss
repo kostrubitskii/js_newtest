@@ -1,5 +1,43 @@
-.wrapper {
+.container {
   display: flex;
   flex-direction: row;
+  width: 100vdb;
 }
 
+.wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rem;
+  gap: 10rem;
+  width: 100%;
+}
+
+.pagination button {
+  justify-content: center;
+  padding: 8rem 14rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+  }
+}
+
+.pagination .active {
+  background-color: #28a745;
+  font-weight: bold;
+}

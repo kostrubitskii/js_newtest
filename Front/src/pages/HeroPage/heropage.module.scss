@@ -4,6 +4,16 @@
   min-height: 100vh;
 }
 
+.arrow {
+  margin-top: 20rem;
+  border: solid #007bff;
+  border-width: 0 5px 5px 0;
+  display: inline-block;
+  padding: 10rem;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
 .nickname {
   padding: 40rem 0 10rem;
   font-size: 50rem;
