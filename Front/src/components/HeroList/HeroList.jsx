@@ -1,27 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Card } from "../Card/Card";
 import styles from "./herolist.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export const HeroList = () => {
-  const [heroes, setHeroes] = useState([]);
+export const HeroList = ({ heroes }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [hero, setHero] = useState([]);
   const heroesPerPage = 5;
-
-  const getHero = async () => {
-    try {
-      const res = await fetch("http://localhost:3005/heroes");
-      const data = await res.json();
-      setHeroes(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getHero().then((data) => setHero(data));
-  }, []);
 
   const lastHeroIndex = currentPage * heroesPerPage;
   const firstHeroIndex = lastHeroIndex - heroesPerPage;

@@ -1,4 +1,4 @@
-export const handleCreateSubmit = async (e, formData) => {
+export const handleCreateSubmit = async (e, formData, updateHeroes) => {
   e.preventDefault();
 
   const data = new FormData();
@@ -24,14 +24,18 @@ export const handleCreateSubmit = async (e, formData) => {
 
     const result = await response.json();
     console.log('Супергероя створено:', result);
+
+    if (updateHeroes) {
+      updateHeroes(result);
+    }
+
   } catch (error) {
-    console.error('Помилка в створені супергероя:', error);
+    console.error('Помилка в створенні супергероя:', error);
   }
 
-  window.location.reload()
 };
 
-export const handleUpdateSubmit = async (e, formData, heroId) => {
+export const handleUpdateSubmit = async (e, formData, heroId, updateHeroes) => {
   e.preventDefault();
 
   const data = new FormData();
@@ -62,11 +66,14 @@ export const handleUpdateSubmit = async (e, formData, heroId) => {
 
     const result = await response.json();
     console.log('Супергероя оновлено:', result);
+  
+    if (updateHeroes) {
+      updateHeroes(result);
+    }
+
   } catch (error) {
     console.error('Помилка в оновленні супергероя:', error);
   }
-
-  window.location.reload()
 };
 
 

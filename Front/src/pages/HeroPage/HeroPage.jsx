@@ -10,21 +10,28 @@ import { handleUpdateSubmit } from "../../components/Form/utils";
 export const HeroPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const getHero = async () => {
-    try {
-      const res = await fetch(`http://localhost:3005/heroes/${id}`);
-      return res.json();
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const [hero, setHero] = useState([]);
   const [click, setClick] = useState(false);
 
+  const fetchHero = async () => {
+    try {
+      const res = await fetch(`http://localhost:3005/heroes/${id}`);
+      const data = await res.json();
+      setHero(data);
+    } catch (error) {
+      console.error("Помилка завантаження героя:", error);
+    }
+  };
+
   useEffect(() => {
-    getHero().then((heroes) => setHero(heroes));
-  }, [click]);
+    fetchHero();
+  }, []);
+
+  const handleUpdateHero = async (e, formData) => {
+    await handleUpdateSubmit(e, formData, id);
+    fetchHero();
+    setClick(false);
+  };
 
   const getCLicked = () => {
     setClick((prev) => !prev);
@@ -100,7 +107,7 @@ export const HeroPage = () => {
                 catch_phrase: hero.catch_phrase,
                 images: hero.images,
               }}
-              handleSubmit={handleUpdateSubmit}
+              handleSubmit={handleUpdateHero}
               id={hero._id}
             />
           </div>
