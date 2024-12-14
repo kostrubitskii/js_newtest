@@ -1,31 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./main.module.scss";
 import { Form } from "../../components/Form/Form";
 import { HeroList } from "../../components/HeroList/HeroList";
 import { Header } from "../../components/Header/Header";
-import { handleCreateSubmit } from "../../components/Form/utils";
 import { useEffect, useState } from "react";
+import { useDispatch } from 'react-redux';
+import { addHeroAction, fetchHeroesAction } from "../../actions/heroesAction";
 
 export const Main = () => {
   const [click, setClick] = useState(false);
-  const [heroes, setHeroes] = useState([]);
 
-  const fetchHeroes = async () => {
-    try {
-      const res = await fetch("http://localhost:3005/heroes");
-      const data = await res.json();
-      setHeroes(data);
-    } catch (error) {
-      console.error("Помилка завантаження героїв:", error);
-    }
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchHeroes();
+    dispatch(fetchHeroesAction());
   }, []);
 
   const handleCreateHero = async (e, formData) => {
-    await handleCreateSubmit(e, formData);
-    await fetchHeroes();
+    
+    await dispatch(addHeroAction(e, formData));
+
+    dispatch(fetchHeroesAction());
     setClick(false);
   };
 
@@ -40,7 +35,7 @@ export const Main = () => {
         <p className={styles.text}>FEATURED CHARACTERS</p>
 
         <div className={styles.cards}>
-          <HeroList heroes={heroes} />
+          <HeroList />
         </div>
         <button className={styles.button} onClick={getCLicked}>
           {click ? "CANCEL" : "ADD HERO"}

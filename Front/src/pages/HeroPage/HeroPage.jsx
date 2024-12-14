@@ -5,9 +5,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header/Header";
 import { Form } from "../../components/Form/Form";
-import { handleUpdateSubmit } from "../../components/Form/utils";
+import { useDispatch } from "react-redux";
+import { deleteHeroAction, updateHeroAction } from "../../actions/heroesAction";
 
 export const HeroPage = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
   const [hero, setHero] = useState([]);
@@ -25,10 +27,10 @@ export const HeroPage = () => {
 
   useEffect(() => {
     fetchHero();
-  }, []);
+  }, [hero]);
 
   const handleUpdateHero = async (e, formData) => {
-    await handleUpdateSubmit(e, formData, id);
+    dispatch(updateHeroAction(e, formData, id))
     fetchHero();
     setClick(false);
   };
@@ -38,18 +40,7 @@ export const HeroPage = () => {
   };
 
   const handleDelete = async () => {
-    try {
-      const res = await fetch(`http://localhost:3005/heroes/${id}`, {
-        method: "DELETE",
-      });
-      if (res.ok) {
-        navigate("/");
-      } else {
-        console.log("Помилка видалення героя");
-      }
-    } catch (error) {
-      console.log("Помилка:", error);
-    }
+    dispatch(deleteHeroAction(id, navigate))
   };
 
   return (

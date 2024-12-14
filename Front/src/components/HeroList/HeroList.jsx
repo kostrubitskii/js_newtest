@@ -2,10 +2,13 @@
 import { Card } from "../Card/Card";
 import styles from "./herolist.module.scss";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
-export const HeroList = ({ heroes }) => {
+export const HeroList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const heroesPerPage = 5;
+
+  const heroes = useSelector((state) => state.heroes.heroes);
 
   const lastHeroIndex = currentPage * heroesPerPage;
   const firstHeroIndex = lastHeroIndex - heroesPerPage;
